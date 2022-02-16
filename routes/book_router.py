@@ -1,6 +1,5 @@
 from fastapi import APIRouter,HTTPException
 from models.book import BookDTO
-from database.data import books
 
 
 from database.connection import client
