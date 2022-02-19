@@ -1,14 +1,18 @@
 import datetime
 from sqlalchemy.sql.sqltypes import String,Integer, DateTime, Text
-from database.connection import metadata, engine
-from sqlalchemy import Table, Column
+from sqlalchemy import  Column,ForeignKey
+from database.connection import Base
+from sqlalchemy.orm import relationship
 
-Books = Table('books', metadata, 
-              Column('id', Integer, primary_key=True, autoincrement=True),
-              Column('title', String, nullable=False),
-              Column('description', Text, nullable=False),
-              Column('author', String, nullable=False),
-              Column('create_at', DateTime, default=datetime.datetime.now())
-            )
 
-metadata.create_all(engine)
+class Book(Base):
+  __tablename__ = 'books'
+  
+  id=Column( Integer, primary_key=True, autoincrement=True)
+  title=Column( String, nullable=False)
+  description=Column( Text, nullable=False)
+  author=Column( String, nullable=False)
+  created_at = Column( DateTime, default=datetime.datetime.now())
+  
+  user_id = Column( Integer, ForeignKey("users.id"))
+  user = relationship("User", back_populates="books") 
