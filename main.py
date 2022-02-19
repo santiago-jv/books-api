@@ -22,7 +22,7 @@ app.include_router(auth_router)
 
 @app.middleware("http")
 async def verify_authorization(request:Request, call_next):
-    if "auth" in request.url.path:
+    if "auth" in request.url.path or "/" ==  request.url.path:
         response = await call_next(request)     
         return response  
     try:

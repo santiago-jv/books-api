@@ -34,15 +34,12 @@ def get_book(id:int, database:Session = Depends(get_database)):
 
 @book_router.put('/{id}')
 def update_book(id:int, new_book:UpdateBookDTO, database:Session = Depends(get_database)):
-    book_id =update_book_object(database, id, new_book)
+    book_id = update_book_object(database, id, new_book)
     if(not book_id):
         raise HTTPException(status_code=404, detail="Book not found")
     
     return "Book updated successfully"
     
-    
-
-
 
 @book_router.delete('/{id}')
 def delete_book(id:int, database:Session = Depends(get_database)):
